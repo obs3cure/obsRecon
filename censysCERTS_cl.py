@@ -65,6 +65,6 @@ class Censys:
  
 
 ip="1.1.1.1"
-certf = "443.https.tls.certificate.parsed.names: *quiron* and location.country_code: ES"
+certf = "443.https.tls.certificate.parsed.names: *google* and location.country_code: ES"
 censys = Censys(ip,certf)
 censys.search4certs()
