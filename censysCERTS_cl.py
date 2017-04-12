@@ -13,8 +13,8 @@ class Censys:
     def __init__(self, ip,certf ):
  
         self.API_URL = "https://www.censys.io/api/v1"
-        self.UID = "b17e3e99-d03a-4bb9-b0bf-27368a84b64b"
-        self.SECRET = "vuJEMPuwpR6gj1VcRQ5NaLdUFoi0HqbK"
+        self.UID = "tu uid"
+        self.SECRET = "tu secret"
         self.ip = ip
         self.cert = certf
         self.names = []
