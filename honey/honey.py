@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 
 #import thread
-import threading
+import threading,thread
 import time
 import socket
 import BaseHTTPServer
 from SimpleHTTPServer import SimpleHTTPRequestHandler
 from httpTrap import MyHandler
+from sshon import SSHServerHandler, handleConnection
+import paramiko
 
-HOST_NAME = '127.0.0.1' 
-PORT_NUMBER = 80  
+HOST_NAME = '127.0.0.1'  # Kali IP address
+PORT_NUMBER = 80  # Listening port number
 
 
 class honey(threading.Thread):
@@ -29,6 +31,8 @@ class honey(threading.Thread):
     def run(self):
         if (self.port==80):
             run8(self)
+        elif (self.port==22):
+            run22(self)
         else:
 
             print '[*] Listening on port %d' % self.port
@@ -55,6 +59,31 @@ def run8(self):
     except KeyboardInterrupt:
         print '[!] Server is terminated'
         httpd.server_close()
+
+def run22(self):
+    SSH_PORT=2222
+
+    try:
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server_socket.bind(('', SSH_PORT))
+        server_socket.listen(100)
+
+
+
+        while (True):
+            try:
+                client_socket, client_addr = server_socket.accept()
+                thread.start_new_thread(handleConnection, (client_socket,))
+            except Exception as e:
+                print("ERROR: Client handling")
+                print(e)
+
+    except Exception as e:
+        print("ERROR: Failed to create SSH socket")
+        print(e)
+
+
 
 
 if __name__ == '__main__':
