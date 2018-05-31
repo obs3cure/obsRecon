@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#                  #       
+#Delete SNMP folder#
+#                  #
+
+rm -rf /opt/allot/conf/SNMP/*
+
+#                    #
+#Restart SNMP process#
+#                    #
+/opt/allot/bin/keeperMgr -SW -R AllSnmpAgent
+echo "SnmpReset finished sucessfully" 
